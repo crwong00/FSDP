@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FSDPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CourseCompletions">
+    <Key>
+      <PropertyRef Name="CourseCompletionId" />
+    </Key>
+    <Property Name="CourseCompletionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Userid" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="CourseID" Type="int" Nullable="false" />
+    <Property Name="DateCompleted" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Courses">
+    <Key>
+      <PropertyRef Name="CourseID" />
+    </Key>
+    <Property Name="CourseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CourseName" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="CourseDescription" Type="varchar" MaxLength="250" />
+    <Property Name="isActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Lessons">
+    <Key>
+      <PropertyRef Name="LessonID" />
+    </Key>
+    <Property Name="LessonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LessonName" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="CourseID" Type="int" Nullable="false" />
+    <Property Name="Introduction" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="VideoURL" Type="varchar" MaxLength="250" />
+    <Property Name="PDFfilename" Type="varchar" MaxLength="100" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LessonViews">
+    <Key>
+      <PropertyRef Name="LessonViewID" />
+    </Key>
+    <Property Name="LessonViewID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="LessonID" Type="int" Nullable="false" />
+    <Property Name="DateViewed" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserDetails">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CourseCompletetionID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Lessons_Courses">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+    <End Role="Lessons" Type="Self.Lessons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="CourseID" />
+      </Principal>
+      <Dependent Role="Lessons">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LessonViews_Lessons">
+    <End Role="Lessons" Type="Self.Lessons" Multiplicity="1" />
+    <End Role="LessonViews" Type="Self.LessonViews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lessons">
+        <PropertyRef Name="LessonID" />
+      </Principal>
+      <Dependent Role="LessonViews">
+        <PropertyRef Name="LessonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LessonViews_UserDetails">
+    <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+    <End Role="LessonViews" Type="Self.LessonViews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserDetails">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="LessonViews">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserDetails_CourseCompletions">
+    <End Role="CourseCompletions" Type="Self.CourseCompletions" Multiplicity="1" />
+    <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CourseCompletions">
+        <PropertyRef Name="CourseCompletionId" />
+      </Principal>
+      <Dependent Role="UserDetails">
+        <PropertyRef Name="CourseCompletetionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FSDPModelStoreContainer">
+    <EntitySet Name="CourseCompletions" EntityType="Self.CourseCompletions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Lessons" EntityType="Self.Lessons" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LessonViews" EntityType="Self.LessonViews" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Lessons_Courses" Association="Self.FK_Lessons_Courses">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Lessons" EntitySet="Lessons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LessonViews_Lessons" Association="Self.FK_LessonViews_Lessons">
+      <End Role="Lessons" EntitySet="Lessons" />
+      <End Role="LessonViews" EntitySet="LessonViews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LessonViews_UserDetails" Association="Self.FK_LessonViews_UserDetails">
+      <End Role="UserDetails" EntitySet="UserDetails" />
+      <End Role="LessonViews" EntitySet="LessonViews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserDetails_CourseCompletions" Association="Self.FK_UserDetails_CourseCompletions">
+      <End Role="CourseCompletions" EntitySet="CourseCompletions" />
+      <End Role="UserDetails" EntitySet="UserDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

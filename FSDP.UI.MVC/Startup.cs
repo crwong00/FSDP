@@ -1,7 +1,5 @@
-﻿using Microsoft.Owin;
-using Owin;
+﻿using Owin;
 
-[assembly: OwinStartupAttribute(typeof(FSDP.UI.MVC.Startup))]
 namespace FSDP.UI.MVC
 {
     public partial class Startup

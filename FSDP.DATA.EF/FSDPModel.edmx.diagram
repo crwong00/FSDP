@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f90d7f4272264424ba9f3747dcbb5337" Name="Diagram1">
+        <EntityTypeShape EntityType="FSDPModel.CourseCompletion" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSDPModel.Cours" Width="1.5" PointX="1.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSDPModel.Lesson" Width="1.5" PointX="4.625" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSDPModel.LessonView" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSDPModel.UserDetail" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="FSDPModel.FK_UserDetails_CourseCompletions" ManuallyRouted="false" />
+        <AssociationConnector Association="FSDPModel.FK_Lessons_Courses" ManuallyRouted="false" />
+        <AssociationConnector Association="FSDPModel.FK_LessonViews_Lessons" ManuallyRouted="false" />
+        <AssociationConnector Association="FSDPModel.FK_LessonViews_UserDetails" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
