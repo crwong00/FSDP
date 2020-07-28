@@ -9,10 +9,36 @@
 </head>
 <body>
     <div class="jumbotron align-center">
-        <h1>Learnt It</h1>
+        <h1>Continuing Education</h1>
         <p class="lead">Continous education is the key to self improvement and we are here to help.</p>
     </div>
+    <header id="header">
+        <h1>&copy; Chris Wong @DateTime.Now.Year</h1>
+        <nav>
+            <ul>
+                <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                <li><a href="@Url.Action("TileView","Cours")">Courses</a></li>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    @Html.Partial("_LoginPartial")
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li><a href="#acct">Account</a></li>
+                }
+                <li><a href="#footer" class="icon solid fa-info-circle">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
     @RenderBody()
+    <div id="acct" class="panel">
+        @Html.Partial("_LoginPartial")
+        @if (User.IsInRole("Admin"))
+        {
+            <li><a href="@Url.Action("Index","UsersAdmin")">Users</a></li>
+            <li><a href="@Url.Action("Index", "RolesAdmin")">Roles</a></li>
+        }
+    </div>
     <!-- Footer -->
     <footer id="footer" class="panel">
         <div class="inner split">
@@ -56,6 +82,7 @@
     <script src="~/content/assets/js/util.js"></script>
     <script src="~/content/assets/js/main.js"></script>
 
+    @RenderSection("scripts", false)
 </body>
 
 </html>

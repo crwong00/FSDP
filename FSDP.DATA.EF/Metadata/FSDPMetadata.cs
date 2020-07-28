@@ -20,6 +20,9 @@ namespace FSDP.DATA.EF.Metadata
         [Display(Name = "Offered at this time?")]
         [Required(ErrorMessage ="** is it currently offered? **")]
         public bool isActive { get; set; }
+        
+        [Display(Name ="Photo")]
+        public string Photo { get; set; }
     }
     [MetadataType(typeof(CourseMetaData))]
     public partial class Course { }

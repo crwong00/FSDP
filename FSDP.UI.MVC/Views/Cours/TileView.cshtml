@@ -1,0 +1,23 @@
+﻿@model IEnumerable<FSDP.DATA.EF.Cours>
+
+@{
+    ViewBag.Title = "TileView";
+}
+
+<div>
+    <p>
+        <a href="@Url.Action("Index","Cours")">List view</a>
+    </p>
+</div>
+
+<div id="main">
+    @foreach (var item in Model)
+    {
+        <article class="thumb">
+            <a href="~/content/images/fulls/@item.Photo" class="image"><img src="~/content/images/thumbs/@item.Photo" alt="" /></a>
+            <h2>@item.CourseName</h2>
+            <p>@item.CourseDescription</p>
+            @Html.ActionLink("Enroll", "Details", new { id = item.CourseID })
+        </article>
+    }
+</div>

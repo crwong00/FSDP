@@ -17,6 +17,7 @@
     <Property Name="CourseName" Type="varchar" MaxLength="75" Nullable="false" />
     <Property Name="CourseDescription" Type="varchar" MaxLength="250" />
     <Property Name="isActive" Type="bit" Nullable="false" />
+    <Property Name="Photo" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Lessons">
     <Key>
