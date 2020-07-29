@@ -51,6 +51,12 @@ C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FS
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\EntityFramework.dll
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\EntityFramework.SqlServer.dll
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\FSDP.DATA.EF.dll
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Google.Apis.Auth.dll
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Google.Apis.Auth.PlatformServices.dll
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Google.Apis.Core.dll
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Google.Apis.dll
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Google.Apis.PlatformServices.dll
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Google.Apis.YouTube.v3.dll
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Microsoft.AspNet.Identity.Core.dll
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -77,6 +83,15 @@ C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FS
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\WebGrease.dll
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\FSDP.DATA.EF.pdb
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\FSDP.DATA.EF.dll.config
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Google.Apis.pdb
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Google.Apis.xml
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Google.Apis.Auth.pdb
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Google.Apis.Auth.xml
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Google.Apis.Core.pdb
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Google.Apis.Core.xml
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Google.Apis.YouTube.v3.pdb
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Google.Apis.YouTube.v3.xml
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Newtonsoft.Json.xml
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\System.Web.Helpers.xml
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\System.Web.Mvc.xml
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\System.Web.Optimization.xml
@@ -84,7 +99,6 @@ C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FS
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\System.Web.WebPages.xml
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\System.Web.WebPages.Deployment.xml
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\System.Web.WebPages.Razor.xml
-C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Newtonsoft.Json.xml
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Antlr3.Runtime.pdb
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\EntityFramework.xml
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\EntityFramework.SqlServer.xml

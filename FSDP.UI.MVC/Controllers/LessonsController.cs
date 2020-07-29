@@ -33,7 +33,27 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return HttpNotFound();
             }
+            if (lesson.VideoURL != null)
+            {
+                var v = lesson.VideoURL.IndexOf("v=");
+                var amp = lesson.VideoURL.IndexOf("&", v);
+                string vid;
+                //if the video id is the last value in the url
+                if (amp == -1)
+                {
+                    vid = lesson.VideoURL.Substring(v + 2);
+                    // if there are other parameters after the video id in the url
+                }
+                else
+                {
+                    vid = lesson.VideoURL.Substring(v + 2, amp - (v + 2));
+                }
+                ViewBag.VideoID = vid;
+            }
+
             return View(lesson);
+
+
         }
 
         [Authorize(Roles ="Admin")]
