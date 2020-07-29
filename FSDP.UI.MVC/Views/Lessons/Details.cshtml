@@ -39,7 +39,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PDFfilename)
+            <a href="@Url.Content("~/Content/images/pdf/" + Model.PDFfilename)" target="_blank">Click to View</a>
         </dd>
 
         <dt>

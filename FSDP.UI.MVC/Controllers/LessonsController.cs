@@ -38,6 +38,7 @@ namespace FSDP.UI.MVC.Controllers
 
         [Authorize(Roles ="Admin")]
         // GET: Lessons/Create
+        [HttpGet]
         public ActionResult Create()
         {
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName");
@@ -50,10 +51,37 @@ namespace FSDP.UI.MVC.Controllers
         [Authorize(Roles ="Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LessonID,LessonName,CourseID,Introduction,VideoURL,PDFfilename,IsActive")] Lesson lesson)
+        public ActionResult Create([Bind(Include = "LessonID,LessonName,CourseID,Introduction,PDFfilename,VideoURL,IsActive")] HttpPostedFileBase PDF, Lesson lesson)
         {
             if (ModelState.IsValid)
-            {               
+            {
+                string pdfFile = "noFile.pdf";
+
+                if(PDF != null)
+                {
+                    pdfFile = PDF.FileName;
+
+                    string ext = pdfFile.Substring(pdfFile.LastIndexOf('.'));
+
+                    string goodExts = ".pdf";
+
+                    if (goodExts.Contains(ext.ToLower()))
+                    {
+                        //save file to webserver
+                        PDF.SaveAs(Server.MapPath("~/Content/images/pdf/" + pdfFile));
+                    }
+
+                }
+
+                else
+                {
+                    //otherwise default back to the default image.
+                    pdfFile = "noFile.pdf";
+                }
+
+
+                lesson.PDFfilename = pdfFile;
+
                 db.Lessons.Add(lesson);
                 db.SaveChanges();
 
@@ -66,6 +94,7 @@ namespace FSDP.UI.MVC.Controllers
 
         [Authorize(Roles = "Admin")]
         // GET: Lessons/Edit/5
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -87,10 +116,30 @@ namespace FSDP.UI.MVC.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "LessonID,LessonName,CourseID,Introduction,VideoURL,PDFfilename,IsActive")] Lesson lesson)
+        public ActionResult Edit([Bind(Include = "LessonID,LessonName,CourseID,Introduction,VideoURL,PDFfilename,IsActive")] HttpPostedFileBase PDF, Lesson lesson)
         {
             if (ModelState.IsValid)
             {
+
+                if (PDF != null)
+                {
+                    string pdfFile = PDF.FileName;
+
+                    string ext = pdfFile.Substring(pdfFile.LastIndexOf('.'));
+
+                    string goodExts = ".pdf";
+
+                    if (goodExts.Contains(ext.ToLower()))
+                    {
+                        //save file to webserver
+                        PDF.SaveAs(Server.MapPath("~/Content/images/pdf/" + pdfFile));
+
+                        
+                    }
+
+                    lesson.PDFfilename = pdfFile;
+                }                
+
                 db.Entry(lesson).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
