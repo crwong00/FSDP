@@ -39,6 +39,8 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return HttpNotFound();
             }
+            //return View(lessons.ToList());
+
             return View(cours);
         }
 
@@ -55,10 +57,37 @@ namespace FSDP.UI.MVC.Controllers
         [Authorize(Roles ="Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CourseID,CourseName,CourseDescription,isActive,Photo")] Cours cours)
+        public ActionResult Create([Bind(Include = "CourseID,CourseName,CourseDescription,isActive,Photo")] HttpPostedFileBase IMG, Cours cours)
         {
             if (ModelState.IsValid)
             {
+                string pic = "noFile.pdf";
+
+                if(IMG != null)
+                {
+                    pic = IMG.FileName;
+
+                    string ext = pic.Substring(pic.LastIndexOf('.'));
+
+                    string[] goodExts = {".png",".jpg",".jpeg" };
+
+                    if (goodExts.Contains(ext.ToLower()))
+                    {
+                        //save file to webserver
+                        IMG.SaveAs(Server.MapPath("~/Content/images/fulls/" + pic));
+                    }
+
+                }
+
+                else
+                {
+                    //otherwise default back to the default image.
+                    pic = "noimg.png";
+                }
+
+
+                cours.Photo = pic;
+
                 db.Courses.Add(cours);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -89,10 +118,30 @@ namespace FSDP.UI.MVC.Controllers
         [Authorize(Roles ="Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CourseID,CourseName,CourseDescription,isActive,Photo")] Cours cours)
+        public ActionResult Edit([Bind(Include = "CourseID,CourseName,CourseDescription,isActive,Photo")] HttpPostedFileBase IMG, Cours cours)
         {
             if (ModelState.IsValid)
             {
+
+                if(IMG != null)
+                {
+                    string pic = IMG.FileName;
+
+                    string ext = pic.Substring(pic.LastIndexOf('.'));
+
+                    string[] goodExts = {".jpg", ".jpeg", ".png" };
+
+                    if (goodExts.Contains(ext.ToLower()))
+                    {
+                        //save file to webserver
+                        IMG.SaveAs(Server.MapPath("~/Content/images/fulls/" + pic));
+
+
+                    }
+
+                    cours.Photo = pic;
+                }
+
                 db.Entry(cours).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

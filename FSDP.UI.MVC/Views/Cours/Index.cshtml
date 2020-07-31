@@ -10,9 +10,13 @@
     </p>
 </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
@@ -20,9 +24,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CourseDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.isActive)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Photo)
@@ -40,16 +41,25 @@
                 @Html.DisplayFor(modelItem => item.CourseDescription)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.isActive)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Photo)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.CourseID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.CourseID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.CourseID })
-            </td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CourseID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CourseID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CourseID })
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.CourseID }) |
+                    <div>
+                        <a href="@Url.Action("Index", "Lessons", new { id = item.CourseID })">Curriculum</a>
+                    </div>
+                </td>
+            }
         </tr>
     }
 

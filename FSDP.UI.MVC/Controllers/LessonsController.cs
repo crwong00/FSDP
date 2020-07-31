@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FSDP.DATA.EF;
+using Microsoft.AspNet.Identity;
 
 namespace FSDP.UI.MVC.Controllers
 {
@@ -15,9 +16,12 @@ namespace FSDP.UI.MVC.Controllers
         private FSDPEntities db = new FSDPEntities();
 
         // GET: Lessons
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            var lessons = db.Lessons.Include(l => l.Cours);
+            Cours lesson = db.Courses.Find(id);
+            var lessons = db.Lessons.Where(l => l.CourseID == lesson.CourseID);
+            ViewBag.id = id;
+
             return View(lessons.ToList());
         }
 
@@ -51,16 +55,40 @@ namespace FSDP.UI.MVC.Controllers
                 ViewBag.VideoID = vid;
             }
 
+            if (User.IsInRole("Employee"))
+            {
+                LessonView viewed = new LessonView
+                {
+                    UserID = User.Identity.GetUserId(),
+                    DateViewed = DateTime.Now,
+                    LessonID = (int)id
+                };
+                db.LessonViews.Add(viewed);
+                db.SaveChanges();
+
+            }
+
             return View(lesson);
 
 
         }
 
-        [Authorize(Roles ="Admin")]
+
+        public ActionResult Test()
+        {
+            ViewBag.Course = new SelectList(db.Courses, "CourseID", "CourseName");
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
         // GET: Lessons/Create
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            if (id != null)
+            {
+                ViewBag.id = id;
+            }
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName");
             return View();
         }
@@ -68,7 +96,7 @@ namespace FSDP.UI.MVC.Controllers
         // POST: Lessons/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "LessonID,LessonName,CourseID,Introduction,PDFfilename,VideoURL,IsActive")] HttpPostedFileBase PDF, Lesson lesson)
@@ -77,7 +105,7 @@ namespace FSDP.UI.MVC.Controllers
             {
                 string pdfFile = "noFile.pdf";
 
-                if(PDF != null)
+                if (PDF != null)
                 {
                     pdfFile = PDF.FileName;
 
@@ -105,7 +133,7 @@ namespace FSDP.UI.MVC.Controllers
                 db.Lessons.Add(lesson);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = lesson.CourseID });
             }
 
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName", lesson.CourseID);
@@ -154,17 +182,18 @@ namespace FSDP.UI.MVC.Controllers
                         //save file to webserver
                         PDF.SaveAs(Server.MapPath("~/Content/images/pdf/" + pdfFile));
 
-                        
+
                     }
 
                     lesson.PDFfilename = pdfFile;
-                }                
+                }
 
                 db.Entry(lesson).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName", lesson.CourseID);
+
+            ViewBag.CourseID = new SelectList(db.Courses, "Course", "CourseName", lesson.CourseID);
             return View(lesson);
         }
 
@@ -193,7 +222,7 @@ namespace FSDP.UI.MVC.Controllers
             Lesson lesson = db.Lessons.Find(id);
             db.Lessons.Remove(lesson);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("TileView", "Cours");
         }
 
         protected override void Dispose(bool disposing)

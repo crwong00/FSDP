@@ -6,7 +6,7 @@
 <h2>@ViewBag.Title.</h2>
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-8"> 
         <p>
             @(Model.HasPassword ? Html.ActionLink("Change your password", "ChangePassword") 
                 : Html.ActionLink("Pick a password", "SetPassword"))
@@ -25,11 +25,11 @@
             }
             ]
         </p>
-        <p>
+        @*<p>
             External Logins: @Model.Logins.Count
             @Html.ActionLink("[Manage]", "ManageLogins")
-        </p>
-        @if (Model.TwoFactor)
+        </p>*@
+        @*@if (Model.TwoFactor)
         {
             using (Html.BeginForm("DisableTFA", "Manage", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
             {
@@ -50,7 +50,7 @@
                     <input type="submit" value="Enable" class="btn btn-default"/>
                 </p>
             }
-        }
+        }*@
         @if (Model.BrowserRemembered)
         {
             using (Html.BeginForm("ForgetBrowser", "Manage", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))

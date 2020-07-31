@@ -82,16 +82,13 @@
     <Compile Include="UserDetail.cs">
       <DependentUpon>FSDPModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Youtube.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="FSDPModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>FSDPModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="FSDPModel.edmx.diagram">
       <DependentUpon>FSDPModel.edmx</DependentUpon>
     </None>
@@ -101,8 +98,8 @@
     <Content Include="Bitmap1.bmp" />
     <Content Include="FSDPModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>FSDPModel.Context.cs</LastGenOutput>
       <DependentUpon>FSDPModel.edmx</DependentUpon>
+      <LastGenOutput>FSDPModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="FSDPModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

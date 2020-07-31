@@ -14,11 +14,11 @@
     <EntitySetMapping Name="Courses">
       <EntityTypeMapping TypeName="FSDPModel.Cours">
         <MappingFragment StoreEntitySet="Courses">
-          <ScalarProperty Name="Photo" ColumnName="Photo" />
           <ScalarProperty Name="CourseID" ColumnName="CourseID" />
           <ScalarProperty Name="CourseName" ColumnName="CourseName" />
           <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
           <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

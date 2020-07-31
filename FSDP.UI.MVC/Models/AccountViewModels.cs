@@ -64,6 +64,14 @@ namespace FSDP.UI.MVC.Models
 
     public class RegisterViewModel
     {
+        [Required(ErrorMessage ="First Name required")]
+        [Display(Name ="First Name")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage ="Last name required")]
+        [Display(Name ="Last Name")]
+        public string LastName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

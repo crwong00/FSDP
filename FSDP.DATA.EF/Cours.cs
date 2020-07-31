@@ -18,6 +18,7 @@ namespace FSDP.DATA.EF
         public Cours()
         {
             this.Lessons = new HashSet<Lesson>();
+            this.Lessons1 = new HashSet<Lesson>();
         }
     
         public int CourseID { get; set; }
@@ -28,5 +29,7 @@ namespace FSDP.DATA.EF
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lesson> Lessons { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lesson> Lessons1 { get; set; }
     }
 }

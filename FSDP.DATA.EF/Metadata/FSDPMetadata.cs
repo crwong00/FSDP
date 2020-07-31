@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace FSDP.DATA.EF.Metadata
+namespace FSDP.DATA.EF //Metadata
 {
     #region Course
     public class CourseMetaData
@@ -68,13 +68,25 @@ namespace FSDP.DATA.EF.Metadata
     public class LessonViewMetaData
     {
         [Display(Name ="viewed")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public System.DateTime DateViewed { get; set; }
     }
-    [MetadataType(typeof(LessonMetaData))]
-    public partial class LessonView { }
+    [MetadataType(typeof(LessonViewMetaData))]
+    public partial class LessonView {}
     #endregion
 
     #region User details view
+    [MetadataType(typeof(UserDetailsMetaData))]
+    public partial class UserDetail
+    {
+        [Display(Name ="User")]
+        public string FullName
+        {
+            get { return FirstName + " " + LastName; }     
+        }
+
+    }
+
     public class UserDetailsMetaData
     {
         [Display(Name ="First Name")]
@@ -86,8 +98,7 @@ namespace FSDP.DATA.EF.Metadata
         public string LastName { get; set; }
 
     }
-    [MetadataType(typeof(UserDetailsMetaData))]
-    public partial class UserDetail { }
+
     #endregion
 
 }

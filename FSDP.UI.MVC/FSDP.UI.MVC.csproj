@@ -436,6 +436,8 @@
     <Content Include="Views\Cours\Edit.cshtml" />
     <Content Include="Views\Cours\Index.cshtml" />
     <Content Include="Views\Cours\TileView.cshtml" />
+    <Content Include="Views\Lessons\Test.cshtml" />
+    <Content Include="Views\UserDetails\CurrentDet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

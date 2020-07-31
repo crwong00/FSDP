@@ -47,9 +47,21 @@
     <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="CourseCompletetionID" Type="int" Nullable="false" />
+    <Property Name="CourseCompletetionID" Type="int" />
   </EntityType>
   <Association Name="FK_Lessons_Courses">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+    <End Role="Lessons" Type="Self.Lessons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="CourseID" />
+      </Principal>
+      <Dependent Role="Lessons">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lessons_Courses1">
     <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
     <End Role="Lessons" Type="Self.Lessons" Multiplicity="*" />
     <ReferentialConstraint>
@@ -86,7 +98,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_UserDetails_CourseCompletions">
-    <End Role="CourseCompletions" Type="Self.CourseCompletions" Multiplicity="1" />
+    <End Role="CourseCompletions" Type="Self.CourseCompletions" Multiplicity="0..1" />
     <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CourseCompletions">
@@ -104,6 +116,10 @@
     <EntitySet Name="LessonViews" EntityType="Self.LessonViews" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Lessons_Courses" Association="Self.FK_Lessons_Courses">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Lessons" EntitySet="Lessons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lessons_Courses1" Association="Self.FK_Lessons_Courses1">
       <End Role="Courses" EntitySet="Courses" />
       <End Role="Lessons" EntitySet="Lessons" />
     </AssociationSet>

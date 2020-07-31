@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FSDP.DATA.EF;
+using Microsoft.AspNet.Identity;
 
 namespace FSDP.UI.MVC.Controllers
 {
@@ -33,6 +34,19 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.acct = User.Identity.GetUserId().FirstOrDefault();          
+
+            return View(userDetail);
+        }
+
+        public ActionResult CurrentDet()
+        {
+            string currentUser = User.Identity.GetUserId();
+
+            UserDetail userDetail = db.UserDetails.Where(c => c.UserID == currentUser).FirstOrDefault();
+
+            ViewBag.acct = currentUser;
+
             return View(userDetail);
         }
 

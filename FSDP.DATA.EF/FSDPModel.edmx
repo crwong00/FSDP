@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FSDPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="FSDPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CourseCompletions">
           <Key>
             <PropertyRef Name="CourseCompletionId" />
@@ -52,9 +52,21 @@
           <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="CourseCompletetionID" Type="int" Nullable="false" />
+          <Property Name="CourseCompletetionID" Type="int" />
         </EntityType>
         <Association Name="FK_Lessons_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="Lessons" Type="Self.Lessons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Lessons">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lessons_Courses1">
           <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
           <End Role="Lessons" Type="Self.Lessons" Multiplicity="*" />
           <ReferentialConstraint>
@@ -91,7 +103,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserDetails_CourseCompletions">
-          <End Role="CourseCompletions" Type="Self.CourseCompletions" Multiplicity="1" />
+          <End Role="CourseCompletions" Type="Self.CourseCompletions" Multiplicity="0..1" />
           <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CourseCompletions">
@@ -112,6 +124,10 @@
             <End Role="Courses" EntitySet="Courses" />
             <End Role="Lessons" EntitySet="Lessons" />
           </AssociationSet>
+          <AssociationSet Name="FK_Lessons_Courses1" Association="Self.FK_Lessons_Courses1">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Lessons" EntitySet="Lessons" />
+          </AssociationSet>
           <AssociationSet Name="FK_LessonViews_Lessons" Association="Self.FK_LessonViews_Lessons">
             <End Role="Lessons" EntitySet="Lessons" />
             <End Role="LessonViews" EntitySet="LessonViews" />
@@ -125,7 +141,8 @@
             <End Role="UserDetails" EntitySet="UserDetails" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FSDPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -147,8 +164,9 @@
           <Property Name="CourseName" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CourseDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="isActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Courses" FromRole="Courses" ToRole="Lessons" />
           <Property Name="Photo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Courses" FromRole="Courses" ToRole="Lessons" />
+          <NavigationProperty Name="Lessons1" Relationship="Self.FK_Lessons_Courses1" FromRole="Courses" ToRole="Lessons" />
         </EntityType>
         <EntityType Name="Lesson">
           <Key>
@@ -162,6 +180,7 @@
           <Property Name="PDFfilename" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Cours" Relationship="Self.FK_Lessons_Courses" FromRole="Lessons" ToRole="Courses" />
+          <NavigationProperty Name="Cours1" Relationship="Self.FK_Lessons_Courses1" FromRole="Lessons" ToRole="Courses" />
           <NavigationProperty Name="LessonViews" Relationship="Self.FK_LessonViews_Lessons" FromRole="Lessons" ToRole="LessonViews" />
         </EntityType>
         <EntityType Name="LessonView">
@@ -182,12 +201,12 @@
           <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CourseCompletetionID" Type="Int32" Nullable="false" />
+          <Property Name="CourseCompletetionID" Type="Int32" />
           <NavigationProperty Name="CourseCompletion" Relationship="Self.FK_UserDetails_CourseCompletions" FromRole="UserDetails" ToRole="CourseCompletions" />
           <NavigationProperty Name="LessonViews" Relationship="Self.FK_LessonViews_UserDetails" FromRole="UserDetails" ToRole="LessonViews" />
         </EntityType>
         <Association Name="FK_UserDetails_CourseCompletions">
-          <End Role="CourseCompletions" Type="Self.CourseCompletion" Multiplicity="1" />
+          <End Role="CourseCompletions" Type="Self.CourseCompletion" Multiplicity="0..1" />
           <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CourseCompletions">
@@ -199,6 +218,18 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Lessons_Courses">
+          <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
+          <End Role="Lessons" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Lessons">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lessons_Courses1">
           <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
           <End Role="Lessons" Type="Self.Lesson" Multiplicity="*" />
           <ReferentialConstraint>
@@ -248,6 +279,10 @@
             <End Role="Courses" EntitySet="Courses" />
             <End Role="Lessons" EntitySet="Lessons" />
           </AssociationSet>
+          <AssociationSet Name="FK_Lessons_Courses1" Association="Self.FK_Lessons_Courses1">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Lessons" EntitySet="Lessons" />
+          </AssociationSet>
           <AssociationSet Name="FK_LessonViews_Lessons" Association="Self.FK_LessonViews_Lessons">
             <End Role="Lessons" EntitySet="Lessons" />
             <End Role="LessonViews" EntitySet="LessonViews" />
@@ -276,11 +311,11 @@
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="FSDPModel.Cours">
               <MappingFragment StoreEntitySet="Courses">
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="CourseID" ColumnName="CourseID" />
                 <ScalarProperty Name="CourseName" ColumnName="CourseName" />
                 <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -23,7 +23,7 @@ namespace FSDP.DATA.EF
         public string UserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int CourseCompletetionID { get; set; }
+        public Nullable<int> CourseCompletetionID { get; set; }
     
         public virtual CourseCompletion CourseCompletion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

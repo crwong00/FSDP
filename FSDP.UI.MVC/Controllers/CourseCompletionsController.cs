@@ -14,7 +14,7 @@ namespace FSDP.UI.MVC.Controllers
     public class CourseCompletionsController : Controller
     {
         private FSDPEntities db = new FSDPEntities();
-
+        
         // GET: CourseCompletions
         public ActionResult Index()
         {

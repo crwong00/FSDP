@@ -18,11 +18,13 @@
             <ul>
                 <li><a href="@Url.Action("Index","Home")">Home</a></li>
                 <li><a href="@Url.Action("TileView","Cours")">Courses</a></li>
+                <li><a href="@Url.Action("Index", "LessonViews")">Completed Lessons</a></li>
                 @if (!User.Identity.IsAuthenticated)
                 {
                     @Html.Partial("_LoginPartial")
                 }
                 @if (User.Identity.IsAuthenticated)
+
                 {
                     <li><a href="#acct">Account</a></li>
                 }

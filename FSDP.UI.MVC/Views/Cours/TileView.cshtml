@@ -19,7 +19,7 @@
             <p>@item.CourseDescription</p>
             @Html.ActionLink("Enroll", "Details", new { id = item.CourseID })
             <div>
-                <a href="@Url.Action("Index", "Lessons")">Cirriculum</a>
+                <a href="@Url.Action("Index", "Lessons", new { id = item.CourseID })">Curriculum</a>
             </div>
            
         </article>

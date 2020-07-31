@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace FSDP.UI.MVC.Controllers
 {
@@ -7,6 +8,9 @@ namespace FSDP.UI.MVC.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            string currentUserID = User.Identity.GetUserId();
+
+            ViewBag.id = currentUserID;
             return View();
         }
 

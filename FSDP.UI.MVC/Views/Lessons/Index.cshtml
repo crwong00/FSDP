@@ -9,9 +9,10 @@
 @if (User.IsInRole("Admin"))
 {
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Create New", "Create", new { id = ViewBag.id })
     </p>
 }
+
 
 <table class="table">
     <tr>
@@ -23,9 +24,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.VideoURL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Cours.CourseName)
@@ -46,9 +44,6 @@
             @Html.DisplayFor(modelItem => item.VideoURL)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Cours.CourseName)
         </td>
         @if (User.IsInRole("Admin"))
@@ -59,7 +54,7 @@
                 @Html.ActionLink("Delete", "Delete", new { id = item.LessonID })
             </td>
         }
-        @if(User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
+        @if(!User.IsInRole("Admin"))
         {
             <td>
                 @Html.ActionLink("Details", "Details", new { id = item.LessonID })

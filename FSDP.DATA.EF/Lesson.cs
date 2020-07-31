@@ -29,6 +29,7 @@ namespace FSDP.DATA.EF
         public bool IsActive { get; set; }
     
         public virtual Cours Cours { get; set; }
+        public virtual Cours Cours1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LessonView> LessonViews { get; set; }
     }

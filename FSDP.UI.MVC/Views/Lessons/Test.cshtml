@@ -1,0 +1,42 @@
+﻿@model FSDP.DATA.EF.Lesson
+
+@{
+    ViewBag.Title = "Test";
+}
+
+<h2>Test</h2>
+
+@*@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.IsActive)
+                @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    }*@
+<div>
+    Question 1?
+    <label for="question1"><input type="checkbox" id="ansa" name="question1" value="correct" />correct answer</label>
+    <label for="question1"><input type="checkbox" id="ansb" name="question1" value="correct" />incorrect answer</label>
+    <label for="question1"><input type="checkbox" id="ansc" name="question1" value="correct" />incorrect answer</label>
+    <label for="question1"><input type="checkbox" id="ansd" name="question1" value="correct" />incorrect answer</label>
+</div>
+<div>
+    Question 2?
+    <label for="question1"><input type="checkbox" id="answer1" name="question1" value="correct" />incorrect answer</label>
+    <label for="question1"><input type="checkbox" id="answer2" name="question1" value="correct" />incorrect answer</label>
+    <label for="question1"><input type="checkbox" id="answer3" name="question1" value="correct" />incorrect answer</label>
+    <label for="question1"><input type="checkbox" id="answer4" name="question1" value="correct" />correct answer</label>
+</div>
+<div>
+    Question 3?
+    <label for="question1"><input type="checkbox" id="a" name="question1" value="correct" />incorrect answer</label>
+    <label for="question1"><input type="checkbox" id="b" name="question1" value="correct" />incorrect answer</label>
+    <label for="question1"><input type="checkbox" id="c" name="question1" value="correct" />correct answer</label>
+    <label for="question1"><input type="checkbox" id="d" name="question1" value="correct" />incorrect answer</label>
+</div>
+
+<input type="submit" value="Submit">
