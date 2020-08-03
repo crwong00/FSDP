@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>LessonView</h4>
+    <h4>Completed Lesson</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -17,7 +17,12 @@
         <dd>
             @Html.DisplayFor(model => model.DateViewed)
         </dd>
-
+        <dt>
+            @Html.DisplayNameFor(model => model.Lesson.Cours.CourseName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Lesson.Cours.CourseName)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Lesson.LessonName)
         </dt>
@@ -27,11 +32,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UserDetail.FirstName)
+            @Html.DisplayNameFor(model => model.UserDetail.FullName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserDetail.FirstName)
+            @Html.DisplayFor(model => model.UserDetail.FullName)
         </dd>
 
     </dl>

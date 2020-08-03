@@ -16,10 +16,25 @@ namespace FSDP.UI.MVC.Controllers
         private FSDPEntities db = new FSDPEntities();
 
         // GET: LessonViews
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            var lessonViews = db.LessonViews.Include(l => l.Lesson).Include(l => l.UserDetail);
-            return View(lessonViews.ToList());
+            if(User.IsInRole("Employee"))
+            {
+                string student = User.Identity.GetUserId();
+                ViewBag.id = id;
+
+                var lessonViews = db.LessonViews.Include(l => l.Lesson).Include(l => l.UserDetail).Where(l => l.UserID == student);
+
+
+                return View(lessonViews.ToList());
+            }
+            else
+            {
+                var completed = db.LessonViews;
+
+                return View(completed.ToList());
+            }
+
         }
 
         // GET: LessonViews/Details/5
@@ -37,6 +52,7 @@ namespace FSDP.UI.MVC.Controllers
             return View(lessonView);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: LessonViews/Create
         public ActionResult Create()
         {
@@ -48,6 +64,7 @@ namespace FSDP.UI.MVC.Controllers
         // POST: LessonViews/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "LessonViewID,UserID,LessonID,DateViewed")] LessonView lessonView)
@@ -64,6 +81,7 @@ namespace FSDP.UI.MVC.Controllers
             return View(lessonView);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: LessonViews/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -84,6 +102,7 @@ namespace FSDP.UI.MVC.Controllers
         // POST: LessonViews/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "LessonViewID,UserID,LessonID,DateViewed")] LessonView lessonView)
@@ -100,6 +119,7 @@ namespace FSDP.UI.MVC.Controllers
         }
 
         // GET: LessonViews/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -115,6 +135,7 @@ namespace FSDP.UI.MVC.Controllers
         }
 
         // POST: LessonViews/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

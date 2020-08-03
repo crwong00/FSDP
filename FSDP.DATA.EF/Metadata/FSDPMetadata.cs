@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 namespace FSDP.DATA.EF //Metadata
 {
     #region Course
-    public class CourseMetaData
+    public class CoursMetaData
     {
         [Display(Name ="Course")]
         [Required(ErrorMessage ="Course name required.")]
@@ -24,19 +24,20 @@ namespace FSDP.DATA.EF //Metadata
         [Display(Name ="Photo")]
         public string Photo { get; set; }
     }
-    [MetadataType(typeof(CourseMetaData))]
-    public partial class Course { }
+    [MetadataType(typeof(CoursMetaData))]
+    public partial class Cours { }
     #endregion
 
     #region completedcourse
     public class CourseCompletionMetaData
     {
         [Display(Name = "Date Completed ")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         [Required(ErrorMessage ="Must post when completed")]
         public System.DateTime DateCompleted { get; set; }
     }
-    [MetadataType(typeof(CourseMetaData))]
-    public partial class CourseCompletion { }
+    [MetadataType(typeof(CourseCompletionMetaData))]
+    public partial class CourseCompletion {}
     #endregion
 
     #region Lesson

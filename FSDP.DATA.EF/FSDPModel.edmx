@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FSDPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FSDPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CourseCompletions">
           <Key>
             <PropertyRef Name="CourseCompletionId" />
@@ -52,8 +52,31 @@
           <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="CourseCompletetionID" Type="int" />
         </EntityType>
+        <Association Name="FK_CourseCompletions_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="CourseCompletions" Type="Self.CourseCompletions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="CourseCompletions">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseCompletions_UserDetails1">
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+          <End Role="CourseCompletions" Type="Self.CourseCompletions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="CourseCompletions">
+              <PropertyRef Name="Userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Lessons_Courses">
           <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
           <End Role="Lessons" Type="Self.Lessons" Multiplicity="*" />
@@ -102,24 +125,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserDetails_CourseCompletions">
-          <End Role="CourseCompletions" Type="Self.CourseCompletions" Multiplicity="0..1" />
-          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CourseCompletions">
-              <PropertyRef Name="CourseCompletionId" />
-            </Principal>
-            <Dependent Role="UserDetails">
-              <PropertyRef Name="CourseCompletetionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="FSDPModelStoreContainer">
           <EntitySet Name="CourseCompletions" EntityType="Self.CourseCompletions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lessons" EntityType="Self.Lessons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LessonViews" EntityType="Self.LessonViews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CourseCompletions_Courses" Association="Self.FK_CourseCompletions_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="CourseCompletions" EntitySet="CourseCompletions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseCompletions_UserDetails1" Association="Self.FK_CourseCompletions_UserDetails1">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="CourseCompletions" EntitySet="CourseCompletions" />
+          </AssociationSet>
           <AssociationSet Name="FK_Lessons_Courses" Association="Self.FK_Lessons_Courses">
             <End Role="Courses" EntitySet="Courses" />
             <End Role="Lessons" EntitySet="Lessons" />
@@ -136,13 +155,8 @@
             <End Role="UserDetails" EntitySet="UserDetails" />
             <End Role="LessonViews" EntitySet="LessonViews" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserDetails_CourseCompletions" Association="Self.FK_UserDetails_CourseCompletions">
-            <End Role="CourseCompletions" EntitySet="CourseCompletions" />
-            <End Role="UserDetails" EntitySet="UserDetails" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FSDPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -154,7 +168,8 @@
           <Property Name="Userid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CourseID" Type="Int32" Nullable="false" />
           <Property Name="DateCompleted" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="UserDetails" Relationship="Self.FK_UserDetails_CourseCompletions" FromRole="CourseCompletions" ToRole="UserDetails" />
+          <NavigationProperty Name="UserDetail" Relationship="Self.FK_CourseCompletions_UserDetails" FromRole="CourseCompletions" ToRole="UserDetails" />
+          <NavigationProperty Name="Cours" Relationship="FSDPModel.FK_CourseCompletions_Courses" FromRole="CourseCompletion" ToRole="Cours" />
         </EntityType>
         <EntityType Name="Cours">
           <Key>
@@ -167,6 +182,7 @@
           <Property Name="Photo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_Courses" FromRole="Courses" ToRole="Lessons" />
           <NavigationProperty Name="Lessons1" Relationship="Self.FK_Lessons_Courses1" FromRole="Courses" ToRole="Lessons" />
+          <NavigationProperty Name="CourseCompletions" Relationship="FSDPModel.FK_CourseCompletions_Courses" FromRole="Cours" ToRole="CourseCompletion" />
         </EntityType>
         <EntityType Name="Lesson">
           <Key>
@@ -201,19 +217,18 @@
           <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CourseCompletetionID" Type="Int32" />
-          <NavigationProperty Name="CourseCompletion" Relationship="Self.FK_UserDetails_CourseCompletions" FromRole="UserDetails" ToRole="CourseCompletions" />
+          <NavigationProperty Name="CourseCompletions" Relationship="Self.FK_CourseCompletions_UserDetails" FromRole="UserDetails" ToRole="CourseCompletions" />
           <NavigationProperty Name="LessonViews" Relationship="Self.FK_LessonViews_UserDetails" FromRole="UserDetails" ToRole="LessonViews" />
         </EntityType>
-        <Association Name="FK_UserDetails_CourseCompletions">
-          <End Role="CourseCompletions" Type="Self.CourseCompletion" Multiplicity="0..1" />
-          <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="*" />
+        <Association Name="FK_CourseCompletions_UserDetails">
+          <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="1" />
+          <End Role="CourseCompletions" Type="Self.CourseCompletion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CourseCompletions">
-              <PropertyRef Name="CourseCompletionId" />
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserID" />
             </Principal>
-            <Dependent Role="UserDetails">
-              <PropertyRef Name="CourseCompletetionID" />
+            <Dependent Role="CourseCompletions">
+              <PropertyRef Name="Userid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -271,9 +286,9 @@
           <EntitySet Name="Lessons" EntityType="Self.Lesson" />
           <EntitySet Name="LessonViews" EntityType="Self.LessonView" />
           <EntitySet Name="UserDetails" EntityType="Self.UserDetail" />
-          <AssociationSet Name="FK_UserDetails_CourseCompletions" Association="Self.FK_UserDetails_CourseCompletions">
-            <End Role="CourseCompletions" EntitySet="CourseCompletions" />
+          <AssociationSet Name="FK_CourseCompletions_UserDetails" Association="Self.FK_CourseCompletions_UserDetails">
             <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="CourseCompletions" EntitySet="CourseCompletions" />
           </AssociationSet>
           <AssociationSet Name="FK_Lessons_Courses" Association="Self.FK_Lessons_Courses">
             <End Role="Courses" EntitySet="Courses" />
@@ -291,7 +306,23 @@
             <End Role="UserDetails" EntitySet="UserDetails" />
             <End Role="LessonViews" EntitySet="LessonViews" />
           </AssociationSet>
+          <AssociationSet Name="FK_CourseCompletions_Courses" Association="FSDPModel.FK_CourseCompletions_Courses">
+            <End Role="Cours" EntitySet="Courses" />
+            <End Role="CourseCompletion" EntitySet="CourseCompletions" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_CourseCompletions_Courses">
+          <End Type="FSDPModel.Cours" Role="Cours" Multiplicity="1" />
+          <End Type="FSDPModel.CourseCompletion" Role="CourseCompletion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cours">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="CourseCompletion">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -348,7 +379,6 @@
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="CourseCompletetionID" ColumnName="CourseCompletetionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

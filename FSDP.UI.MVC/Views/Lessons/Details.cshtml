@@ -70,7 +70,8 @@
 
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.LessonID }) |
-    @Html.ActionLink("Back to List", "Index", new { id = Model.CourseID })
+    @Html.ActionLink("Back to List", "Index", new { id = Model.CourseID }) |
+    @Html.ActionLink("Complete", "Details", new { Completed = true }, new { id = Model.CourseID })
 </p>
 
 @section Scripts{

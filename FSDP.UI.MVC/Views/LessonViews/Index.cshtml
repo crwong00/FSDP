@@ -34,6 +34,7 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.DateViewed)
+                @Html.HiddenFor(modelItem => item.UserID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Lesson.Cours.CourseName)

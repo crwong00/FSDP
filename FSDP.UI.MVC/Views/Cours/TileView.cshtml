@@ -11,17 +11,36 @@
 </div>
 
 <div id="main">
-    @foreach (var item in Model)
+    @if (User.IsInRole("Admin"))
     {
-        <article class="thumb">
-            <a href="~/content/images/fulls/@item.Photo" class="image"><img src="~/content/images/fulls/@item.Photo" alt="" /></a>
-            <h2>@item.CourseName</h2>
-            <p>@item.CourseDescription</p>
-            @Html.ActionLink("Enroll", "Details", new { id = item.CourseID })
-            <div>
-                <a href="@Url.Action("Index", "Lessons", new { id = item.CourseID })">Curriculum</a>
-            </div>
-           
-        </article>
+        foreach (var item in Model)
+        {
+            <article class="thumb">
+                <a href="~/content/images/fulls/@item.Photo" class="image"><img src="~/content/images/fulls/@item.Photo" alt="" /></a>
+                <h2>@item.CourseName</h2>
+                <p>@item.CourseDescription</p>
+                @Html.ActionLink("Enroll", "Details", new { id = item.CourseID })
+                <div>
+                    <a href="@Url.Action("Index", "Lessons", new { id = item.CourseID })">Curriculum</a>
+                </div>
+
+            </article>
+        }
+    }
+    @if (!User.IsInRole("Admin"))
+    {
+        foreach (var item in Model.Where(x => x.isActive == true))
+        {
+            <article class="thumb">
+                <a href="~/content/images/fulls/@item.Photo" class="image"><img src="~/content/images/fulls/@item.Photo" alt="" /></a>
+                <h2>@item.CourseName</h2>
+                <p>@item.CourseDescription</p>
+                @Html.ActionLink("Enroll", "Details", new { id = item.CourseID })
+                <div>
+                    <a href="@Url.Action("Index", "Lessons", new { id = item.CourseID })">Curriculum</a>
+                </div>
+
+            </article>
+        }
     }
 </div>

@@ -155,7 +155,7 @@ namespace FSDP.UI.MVC.Controllers
                 if (result.Succeeded)
                 {
                     #region custom userdetails
-                    UserDetail newuser = new UserDetail
+                    UserDetail newUser = new UserDetail
                     {
                         UserID = user.Id,
                         FirstName = model.FirstName,
@@ -163,7 +163,7 @@ namespace FSDP.UI.MVC.Controllers
                     };
 
                     FSDPEntities db = new FSDPEntities();
-                    db.UserDetails.Add(newuser);
+                    db.UserDetails.Add(newUser);
                     db.SaveChanges();
 
                     #endregion

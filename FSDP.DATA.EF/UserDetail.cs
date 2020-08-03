@@ -17,15 +17,16 @@ namespace FSDP.DATA.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserDetail()
         {
+            this.CourseCompletions = new HashSet<CourseCompletion>();
             this.LessonViews = new HashSet<LessonView>();
         }
     
         public string UserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Nullable<int> CourseCompletetionID { get; set; }
     
-        public virtual CourseCompletion CourseCompletion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CourseCompletion> CourseCompletions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LessonView> LessonViews { get; set; }
     }

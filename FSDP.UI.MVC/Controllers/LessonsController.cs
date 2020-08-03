@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using FSDP.DATA.EF;
@@ -26,8 +27,9 @@ namespace FSDP.UI.MVC.Controllers
         }
 
         // GET: Lessons/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, bool? completed)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -55,7 +57,7 @@ namespace FSDP.UI.MVC.Controllers
                 ViewBag.VideoID = vid;
             }
 
-            if (User.IsInRole("Employee"))
+            if (User.IsInRole("Employee") && completed == true)
             {
                 LessonView viewed = new LessonView
                 {
@@ -65,7 +67,73 @@ namespace FSDP.UI.MVC.Controllers
                 };
                 db.LessonViews.Add(viewed);
                 db.SaveChanges();
+                //if(db.LessonViews.Where(l => l.UserID == viewed.UserID && l.Lesson.CourseID == lesson.CourseID).Count() == db.Lessons.Where(l => l.CourseID == lesson.CourseID).Count())
+                //{
+                //    CourseCompletion comp = new CourseCompletion
+                //    {
+                //        Userid = User.Identity.GetUserId(),
+                //        DateCompleted = DateTime.Now,
+                //        CourseID = lesson.CourseID                        
+                //    };
 
+                //    db.CourseCompletions.Add(comp);
+                //    db.SaveChanges();
+                //}
+                if (db.LessonViews.Where(l => l.UserID == viewed.UserID && l.Lesson.CourseID == lesson.CourseID).Count() == db.Lessons.Where(l => l.CourseID == lesson.CourseID).Count())
+                {
+                    CourseCompletion comp = new CourseCompletion
+                    {
+                        Userid = User.Identity.GetUserId(),
+                        DateCompleted = DateTime.Now,
+                        CourseID = lesson.CourseID
+                    };
+                    db.CourseCompletions.Add(comp);
+                    db.SaveChanges();
+
+                    // 1) Build the email message body (content for the email)
+                    string message = $"A course has been completed, check course completion page for updated information.<br>" +
+                        $"";
+
+                    // 2) Create the MailMessage object, and customize
+                    MailMessage msg = new MailMessage(
+                        //FROM - your domain email (admin@yourdomain.com)
+                        "admin@thewongpage.com",
+                        //TO - where the email lands (should be sent to your personal email)
+                        "crwong00@outlook.com",
+                        //subject
+                        "Completed Course",
+                        //Body
+                        message
+                        );
+
+                    //allow HTML formatting
+                    msg.IsBodyHtml = true;
+                    msg.Priority = MailPriority.Normal;//cna change priority
+                                                     //CC  or BCC other recipients
+
+
+                    // 3) Create the SmtpClient that will send the email.
+                    //the client will need info from the host to route the email
+                    SmtpClient client = new SmtpClient("mail.TheWongpage.com");
+                    client.Credentials = new NetworkCredential("admin@TheWongPage.com", "Smokes#1");
+
+
+                    // 4) Attempt sending email.
+                    try
+                    {
+                        client.Send(msg);
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewBag.ErrorMessage = $"Sorry, something went wrong. Pelase try again later or review the stacktrace <br>{ex.StackTrace}";
+                        return View();
+                    }
+
+                    //if the email gets send, we will send the user to a confirmation view.
+                    return RedirectToAction("TileView", "Cours");
+                };
+
+                return RedirectToAction("Index", new { id = lesson.CourseID});
             }
 
             return View(lesson);
@@ -74,11 +142,24 @@ namespace FSDP.UI.MVC.Controllers
         }
 
 
-        public ActionResult Test()
-        {
-            ViewBag.Course = new SelectList(db.Courses, "CourseID", "CourseName");
-            return View();
-        }
+        //public ActionResult Test(int? id, bool? completed)
+        //{
+        //    if (completed == true)
+        //    {
+        //        CourseCompletion done = new CourseCompletion
+        //        {
+        //            Userid = User.Identity.GetUserId(),
+        //            DateCompleted = DateTime.Now,
+        //            CourseID = (int)id
+        //        };
+        //        db.CourseCompletions.Add(done);
+        //        db.SaveChanges();
+        //    }
+
+        //        ViewBag.Course = new SelectList(db.Courses, "CourseID", "CourseName");
+        //        return RedirectToAction("TileView", "Cours");
+            
+        //}
 
         [Authorize(Roles = "Admin")]
         // GET: Lessons/Create

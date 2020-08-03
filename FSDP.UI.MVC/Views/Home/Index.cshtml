@@ -8,9 +8,12 @@
 
     <!-- Wrapper -->
     <div id="wrapper">
+        @section contact{
+            <li><a href="#footer" class="icon solid fa-info-circle">Contact</a></li>
+        }
+
 
         <!-- Header -->
-        
         <!-- Main -->
         @*<div id="main">
             <article class="thumb">
@@ -74,5 +77,37 @@
                 <p>Nunc blandit nisi ligula magna sodales lectus elementum non. Integer id venenatis velit.</p>
             </article>
         </div>*@
-    </div>
+        <footer id="footer" class="panel">
+            <div class="inner split">
+                <div>
+                    <section>
+                        <h2>Help</h2>
+                        <p>If you have any issues with the site please fill out this form and let us know what the problem is. For any questions concerning what classes are needed please direct those to your supervisor.</p>
+                    </section>
+                </div>
+                <div class="contact">
+                    <section>
+                        <h2>Get in touch</h2>
+                        <form method="post">
+                            <div class="fields">
+                                <div class="field half">
+                                    <input type="text" name="name" id="name" placeholder="Name" />
+                                </div>
+                                <div class="field half">
+                                    <input type="text" name="email" id="email" placeholder="Email" />
+                                </div>
+                                <div class="field">
+                                    <textarea name="message" id="message" rows="4" placeholder="Message"></textarea>
+                                </div>
+                            </div>
+                            <ul class="actions">
+                                <li><input type="submit" value="Send" class="primary" /></li>
+                            </ul>
+                        </form>
+
+                    </section>
+                </div>
+
+            </div>
+        </footer>
 </body>

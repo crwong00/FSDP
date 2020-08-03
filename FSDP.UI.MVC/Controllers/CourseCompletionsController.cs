@@ -16,9 +16,25 @@ namespace FSDP.UI.MVC.Controllers
         private FSDPEntities db = new FSDPEntities();
         
         // GET: CourseCompletions
-        public ActionResult Index()
-        {
-            return View(db.CourseCompletions.ToList());
+        public ActionResult Index(int? id)
+        {           
+            if (User.IsInRole("Employee"))
+            {
+                string student = User.Identity.GetUserId();
+                ViewBag.id = id;
+
+                var complete = db.CourseCompletions.Where(l => l.Userid == student).ToList();
+
+
+                return View(complete);
+            }
+            if(User.IsInRole("Admin") || User.IsInRole("Manager"))
+            {
+                return View(db.CourseCompletions.ToList());
+            }
+
+            return RedirectToAction("TileView", "Cours");
+
         }
 
         // GET: CourseCompletions/Details/5
@@ -37,6 +53,7 @@ namespace FSDP.UI.MVC.Controllers
         }
 
         // GET: CourseCompletions/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -60,6 +77,7 @@ namespace FSDP.UI.MVC.Controllers
         }
 
         // GET: CourseCompletions/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -77,6 +95,7 @@ namespace FSDP.UI.MVC.Controllers
         // POST: CourseCompletions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CourseCompletionId,Userid,CourseID,DateCompleted")] CourseCompletion courseCompletion)
@@ -91,6 +110,7 @@ namespace FSDP.UI.MVC.Controllers
         }
 
         // GET: CourseCompletions/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -106,6 +126,7 @@ namespace FSDP.UI.MVC.Controllers
         }
 
         // POST: CourseCompletions/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

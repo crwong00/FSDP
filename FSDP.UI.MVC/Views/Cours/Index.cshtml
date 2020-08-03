@@ -31,36 +31,58 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @if (!User.IsInRole("Admin"))
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CourseName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CourseDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Photo)
-            </td>
-            @if (User.IsInRole("Admin"))
-            {
+        foreach (var item in Model.Where(x => x.isActive == true))
+        {
+
+            <tr>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.CourseID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.CourseID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.CourseID })
+                    @Html.DisplayFor(modelItem => item.CourseName)
                 </td>
-            }
-            else
-            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Photo)
+                </td>
+                
+
                 <td>
                     @Html.ActionLink("Details", "Details", new { id = item.CourseID }) |
                     <div>
                         <a href="@Url.Action("Index", "Lessons", new { id = item.CourseID })">Curriculum</a>
                     </div>
                 </td>
-            }
-        </tr>
-    }
 
+            </tr>
+
+        }
+    }
+    @if (User.IsInRole("Admin"))
+    {
+        foreach (var item in Model)
+        {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Photo)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.CourseID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.CourseID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.CourseID })
+                    </td>
+
+                </tr>
+
+        }
+    }
 </table>

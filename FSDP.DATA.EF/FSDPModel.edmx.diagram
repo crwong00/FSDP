@@ -4,17 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="90e84fca2fa74fa0a10e3a587c234684" Name="Diagram1">
-        <EntityTypeShape EntityType="FSDPModel.CourseCompletion" Width="1.5" PointX="1.25" PointY="4" IsExpanded="true" />
+      <Diagram DiagramId="6fb9439c7e214683ad7b8996ca8b3b5d" Name="Diagram1">
+        <EntityTypeShape EntityType="FSDPModel.CourseCompletion" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="FSDPModel.Cours" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="FSDPModel.Lesson" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="FSDPModel.LessonView" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="FSDPModel.UserDetail" Width="1.5" PointX="4.5" PointY="4.5" IsExpanded="true" />
-        <AssociationConnector Association="FSDPModel.FK_UserDetails_CourseCompletions" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FSDPModel.UserDetail" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <AssociationConnector Association="FSDPModel.FK_CourseCompletions_UserDetails" ManuallyRouted="false" />
         <AssociationConnector Association="FSDPModel.FK_Lessons_Courses" ManuallyRouted="false" />
         <AssociationConnector Association="FSDPModel.FK_Lessons_Courses1" ManuallyRouted="false" />
         <AssociationConnector Association="FSDPModel.FK_LessonViews_Lessons" ManuallyRouted="false" />
         <AssociationConnector Association="FSDPModel.FK_LessonViews_UserDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="FSDPModel.FK_CourseCompletions_Courses" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

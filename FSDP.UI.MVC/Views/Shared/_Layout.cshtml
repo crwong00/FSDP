@@ -18,7 +18,8 @@
             <ul>
                 <li><a href="@Url.Action("Index","Home")">Home</a></li>
                 <li><a href="@Url.Action("TileView","Cours")">Courses</a></li>
-                <li><a href="@Url.Action("Index", "LessonViews")">Completed Lessons</a></li>
+                <li><a href="@Url.Action("Index","CourseCompletions")">Completed Courses</a></li>
+                <li><a href="@Url.Action("Index", "LessonViews", new { id = ViewBag.id })">Completed Lessons</a></li>
                 @if (!User.Identity.IsAuthenticated)
                 {
                     @Html.Partial("_LoginPartial")
@@ -28,7 +29,7 @@
                 {
                     <li><a href="#acct">Account</a></li>
                 }
-                <li><a href="#footer" class="icon solid fa-info-circle">Contact</a></li>
+                @RenderSection("contact", false)                
             </ul>
         </nav>
     </header>
@@ -42,38 +43,45 @@
         }
     </div>
     <!-- Footer -->
-    <footer id="footer" class="panel">
+    @*<footer id="footer" class="panel">
         <div class="inner split">
             <div>
                 <section>
-                    <h2>Magna feugiat sed adipiscing</h2>
-                    <p>Nulla consequat, ex ut suscipit rutrum, mi dolor tincidunt erat, et scelerisque turpis ipsum eget quis orci mattis aliquet. Maecenas fringilla et ante at lorem et ipsum. Dolor nulla eu bibendum sapien. Donec non pharetra dui. Nulla consequat, ex ut suscipit rutrum, mi dolor tincidunt erat, et scelerisque turpis ipsum.</p>
+                    <h2>Help</h2>
+                    <p>If you have any issues with the site please fill out this form and let us know what the problem is. For any questions concerning what classes are needed please direct those to your supervisor.</p>
                 </section>
-            </div>
-            <div>
-                <section>
-                    <h2>Get in touch</h2>
-                    <form method="post" action="#">
-                        <div class="fields">
-                            <div class="field half">
-                                <input type="text" name="name" id="name" placeholder="Name" />
+            </div>*@
+            @*@using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="contact">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <section>
+                        <h2>Get in touch</h2>
+                        <form method="post">
+                            <div class="fields">
+                                <div class="field half">
+                                    <input type="text" name="name" id="name" placeholder="Name" />
+                                </div>
+                                <div class="field half">
+                                    <input type="text" name="email" id="email" placeholder="Email" />
+                                </div>
+                                <div class="field">
+                                    <textarea name="message" id="message" rows="4" placeholder="Message"></textarea>
+                                </div>
                             </div>
-                            <div class="field half">
-                                <input type="text" name="email" id="email" placeholder="Email" />
-                            </div>
-                            <div class="field">
-                                <textarea name="message" id="message" rows="4" placeholder="Message"></textarea>
-                            </div>
-                        </div>
-                        <ul class="actions">
-                            <li><input type="submit" value="Send" class="primary" /></li>
-                            <li><input type="reset" value="Reset" /></li>
-                        </ul>
-                    </form>
-                </section>
-            </div>
-        </div>
-    </footer>
+                            <ul class="actions">
+                                @Html.ActionLink("Send", "Contact", "Home")
+                                <li><input type="submit" value="Send" class="primary" /></li>
+                                <li><input type="reset" value="Reset" /></li>
+                            </ul>
+                        </form>
+
+                    </section>
+                </div>
+            }*@
+        @*</div>
+    </footer>*@
 
 
     <!-- Scripts -->

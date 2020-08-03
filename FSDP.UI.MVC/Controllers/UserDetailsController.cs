@@ -18,7 +18,7 @@ namespace FSDP.UI.MVC.Controllers
         // GET: UserDetails
         public ActionResult Index()
         {
-            var userDetails = db.UserDetails.Include(u => u.CourseCompletion);
+            var userDetails = db.UserDetails;
             return View(userDetails.ToList());
         }
 
@@ -71,7 +71,7 @@ namespace FSDP.UI.MVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CourseCompletetionID = new SelectList(db.CourseCompletions, "CourseCompletionId", "Userid", userDetail.CourseCompletetionID);
+            ViewBag.CourseCompletetionID = new SelectList(db.CourseCompletions, "CourseCompletionId", "Userid");
             return View(userDetail);
         }
 
@@ -87,7 +87,7 @@ namespace FSDP.UI.MVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CourseCompletetionID = new SelectList(db.CourseCompletions, "CourseCompletionId", "Userid", userDetail.CourseCompletetionID);
+            ViewBag.CourseCompletetionID = new SelectList(db.CourseCompletions, "CourseCompletionId", "Userid");
             return View(userDetail);
         }
 
@@ -104,7 +104,7 @@ namespace FSDP.UI.MVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CourseCompletetionID = new SelectList(db.CourseCompletions, "CourseCompletionId", "Userid", userDetail.CourseCompletetionID);
+            ViewBag.CourseCompletetionID = new SelectList(db.CourseCompletions, "CourseCompletionId", "Userid");
             return View(userDetail);
         }
 
