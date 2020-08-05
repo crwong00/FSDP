@@ -33,11 +33,11 @@
         {
             <article class="thumb">
                 <a href="~/content/images/fulls/@item.Photo" class="image"><img src="~/content/images/fulls/@item.Photo" alt="" /></a>
-                <h2>@item.CourseName</h2>
-                <p>@item.CourseDescription</p>
-                @Html.ActionLink("Enroll", "Details", new { id = item.CourseID })
+                <h2 class="course">@item.CourseName</h2>
+                <p class="course">@item.CourseDescription</p>
+                @Html.ActionLink("Enroll", "Details", new { id = item.CourseID }, new {@class = "main-button" })
                 <div>
-                    <a href="@Url.Action("Index", "Lessons", new { id = item.CourseID })">Curriculum</a>
+                    @Html.ActionLink("Curriculum","Index", "Lessons", new { id = item.CourseID }, new {@class  ="main-button" })
                 </div>
 
             </article>

@@ -14,7 +14,7 @@
 }
 
 
-<table class="table">
+<table class="table" id="myTable">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.LessonName)
@@ -48,11 +48,11 @@
         </td>
         @if (User.IsInRole("Admin"))
         {
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.LessonID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.LessonID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.LessonID })
-            </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.LessonID }, new { @class = "aButton" }) |
+            @Html.ActionLink("Details", "Details", new { id = item.LessonID }, new { @class = "aButton" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.LessonID }, new { @class = "dbutton" })
+        </td>
         }
         @if(!User.IsInRole("Admin"))
         {

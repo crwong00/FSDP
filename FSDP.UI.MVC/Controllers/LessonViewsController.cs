@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using FSDP.DATA.EF;
 using Microsoft.AspNet.Identity;
+using PagedList;
+using PagedList.Mvc;
 
 namespace FSDP.UI.MVC.Controllers
 {
@@ -20,21 +22,27 @@ namespace FSDP.UI.MVC.Controllers
         {
             if(User.IsInRole("Employee"))
             {
+                
+
                 string student = User.Identity.GetUserId();
                 ViewBag.id = id;
 
-                var lessonViews = db.LessonViews.Include(l => l.Lesson).Include(l => l.UserDetail).Where(l => l.UserID == student);
+                var lessonViews = db.LessonViews.Include(l => l.Lesson).Include(l => l.UserDetail).Where(l => l.UserID == student).OrderBy(l => l.LessonID);
 
 
                 return View(lessonViews.ToList());
             }
+            else if(User.IsInRole("Admin") || User.IsInRole("Manager"))
+            {
+
+                var completed = db.LessonViews.OrderBy(l => l.UserDetail.UserID).ToList();
+
+                return View(completed);
+            }
             else
             {
-                var completed = db.LessonViews;
-
-                return View(completed.ToList());
+                return RedirectToAction("TileView", "Cours");
             }
-
         }
 
         // GET: LessonViews/Details/5

@@ -31,7 +31,7 @@ namespace FSDP.DATA.EF //Metadata
     #region completedcourse
     public class CourseCompletionMetaData
     {
-        [Display(Name = "Date Completed ")]
+        [Display(Name = "Completed ")]
         [DisplayFormat(DataFormatString = "{0:d}")]
         [Required(ErrorMessage ="Must post when completed")]
         public System.DateTime DateCompleted { get; set; }
@@ -68,7 +68,7 @@ namespace FSDP.DATA.EF //Metadata
     #region Lesson View
     public class LessonViewMetaData
     {
-        [Display(Name ="viewed")]
+        [Display(Name ="Completed")]
         [DisplayFormat(DataFormatString = "{0:d}")]
         public System.DateTime DateViewed { get; set; }
     }

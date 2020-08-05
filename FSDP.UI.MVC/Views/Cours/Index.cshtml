@@ -17,52 +17,53 @@
     </p>
 }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CourseName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CourseDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Photo)
-        </th>
-        <th></th>
-    </tr>
-
-    @if (!User.IsInRole("Admin"))
-    {
-        foreach (var item in Model.Where(x => x.isActive == true))
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Photo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!User.IsInRole("Admin"))
         {
+            foreach (var item in Model.Where(x => x.isActive == true))
+            {
 
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CourseName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CourseDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Photo)
-                </td>
-                
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Photo)
+                    </td>
 
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.CourseID }) |
-                    <div>
-                        <a href="@Url.Action("Index", "Lessons", new { id = item.CourseID })">Curriculum</a>
-                    </div>
-                </td>
 
-            </tr>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.CourseID }) |
+                        <div>
+                            <a href="@Url.Action("Index", "Lessons", new { id = item.CourseID })">Curriculum</a>
+                        </div>
+                    </td>
 
+                </tr>
+            }
         }
-    }
-    @if (User.IsInRole("Admin"))
-    {
-        foreach (var item in Model)
+        @if (User.IsInRole("Admin"))
         {
+            foreach (var item in Model)
+            {
 
                 <tr>
                     <td>
@@ -76,13 +77,23 @@
                     </td>
 
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.CourseID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.CourseID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.CourseID })
+                        @Html.ActionLink("Edit", "Edit", new { id = item.CourseID }, new { @class = "aButton" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.CourseID }, new {@class = "aButton" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.CourseID }, new {@class = "dbutton" })
                     </td>
 
                 </tr>
 
+            }
         }
-    }
+    </tbody>
 </table>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+
+}

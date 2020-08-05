@@ -73,6 +73,8 @@ C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FS
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Newtonsoft.Json.dll
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Owin.dll
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\PagedList.dll
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\PagedList.Mvc.dll
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\System.Web.Helpers.dll
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\System.Web.Mvc.dll
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\System.Web.Optimization.dll
@@ -92,6 +94,8 @@ C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FS
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Google.Apis.YouTube.v3.pdb
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Google.Apis.YouTube.v3.xml
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\Newtonsoft.Json.xml
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\PagedList.xml
+C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\PagedList.Mvc.xml
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\System.Web.Helpers.xml
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\System.Web.Mvc.xml
 C:\Users\student\Documents\Visual Studio 2017\Projects\Final_Project\FSDP\src\FSDP.UI.MVC\bin\System.Web.Optimization.xml

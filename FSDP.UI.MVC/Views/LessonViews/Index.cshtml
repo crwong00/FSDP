@@ -4,62 +4,75 @@
     ViewBag.Title = "Completed Lessons";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2 class="align-center">@ViewBag.Title</h2>
 
-@if (User.IsInRole("Admin"))
-{
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-}
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DateViewed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Lesson.Cours.CourseName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Lesson.LessonName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserDetail.FullName)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
+<div class="table">
+    @if (User.IsInRole("Admin"))
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateViewed)
-                @Html.HiddenFor(modelItem => item.UserID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lesson.Cours.CourseName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lesson.LessonName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserDetail.FullName)
-            </td>
-            @if (User.IsInRole("Admin"))
-            {
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.LessonViewID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.LessonViewID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.LessonViewID })
-                </td>
-            }
-            else
-            {
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.LessonViewID })
-                </td>
-            }
-        </tr>
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
     }
+    <table id="myTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserDetail.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lesson.LessonName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lesson.Cours.CourseName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateViewed)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserDetail.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lesson.LessonName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lesson.Cours.CourseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateViewed)
+                    @Html.HiddenFor(modelItem => item.UserID)
+                </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.LessonViewID }, new { @class = "aButton" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.LessonViewID }, new { @class = "aButton" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.LessonViewID }, new { @class = "dbutton" })
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.LessonViewID })
+                    </td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
-</table>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

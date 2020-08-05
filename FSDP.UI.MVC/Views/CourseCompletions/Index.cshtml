@@ -4,59 +4,74 @@
     ViewBag.Title = "Completed Courses";
 }
 
-<h2>@ViewBag.Title</h2>
-@if(User.IsInRole("Admin"))
+<h2 class="align-center">@ViewBag.Title</h2>
+@if (User.IsInRole("Admin"))
 {
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
 }
-<table class="table">
-    <tr>
-        @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
-        {
-            <th>
-                @Html.DisplayNameFor(model => model.UserDetail.FullName)
-            </th>
-        }
-        <th>
-            @Html.DisplayNameFor(model => model.Cours.CourseName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCompleted)
-        </th>
-        <th></th>
-    </tr>
+<div class="table">
+    <table id="myTable">
+        <thead>
+            <tr>
+                @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                {
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserDetail.FullName)
+                    </th>
+                }
+                <th>
+                    @Html.DisplayNameFor(model => model.Cours.CourseName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateCompleted)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
-        {
-            <td>
-                @Html.DisplayFor(modelItem => item.UserDetail.FullName)
-            </td>
-        }
-        <td>
-            @Html.DisplayFor(modelItem => item.Cours.CourseName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCompleted)
-        </td>
-        @if (User.IsInRole("Admin"))
-        {
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.CourseCompletionId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.CourseCompletionId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.CourseCompletionId })
-            </td>
-        }
-        else
-        {
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.CourseCompletionId })
-            </td>            
-        }
-    </tr>
-}
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserDetail.FullName)
+                        </td>
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cours.CourseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCompleted)
+                    </td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.CourseCompletionId }, new { @class = "aButton" }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.CourseCompletionId }, new { @class = "aButton" }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.CourseCompletionId }, new { @class = "dbutton" })
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.ActionLink("Details", "Details", new { id = item.CourseCompletionId })
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
-</table>
+@*@section scripts{
+        <script>
+            $(document).ready(function () {
+                $('#myTable').DataTable();
+            });
+        </script>
+
+    }*@
